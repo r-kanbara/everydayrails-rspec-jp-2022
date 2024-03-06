@@ -26,4 +26,11 @@ RSpec.describe "Projects", type: :system do
       expect(page).to have_content "Owner: #{user.name}"
     }.to change(user.projects, :count).by(1)
   end
+
+  # ゲストがプロジェクトを追加する
+  # scenario "guest adds a project" do
+  #   visit projects_path
+  #   save_and_open_page  # コンテナ環境では save_page
+  #   click_link "New Project"
+  # end
 end
