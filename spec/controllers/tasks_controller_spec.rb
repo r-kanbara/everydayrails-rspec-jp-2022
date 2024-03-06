@@ -48,4 +48,48 @@ RSpec.describe TasksController, type: :controller do
       expect(response).to_not be_successful
     end
   end
+
+  describe "#new" do
+    # "認証済みユーザーとして"
+    context "as an authenticated user" do
+      # 正常にレスポンスを返すこと
+      it "responds successfully" do
+        sign_in @user
+        get :new, params: { project_id: @project.id }
+        expect(response).to be_successful
+      end
+
+      # 200レスポンスを返すこと
+      it "returns a 200 response" do
+        sign_in @user
+        get :new, params: { project_id: @project.id }
+        expect(response).to have_http_status "200"
+      end
+    end
+
+    # 認可されたユーザーとして
+    # ゲストとして
+  end
+
+  describe "#edit" do
+    # "認証済みユーザーとして"
+    context "as an authenticated user" do
+      # 正常にレスポンスを返すこと
+      it "responds successfully" do
+        sign_in @user
+        get :edit, params: { project_id: @project.id, id: @task.id }
+        expect(response).to be_successful
+      end
+
+      # 200レスポンスを返すこと
+      it "returns a 200 response" do
+        sign_in @user
+        get :edit, params: { project_id: @project.id, id: @task.id }
+        expect(response).to have_http_status "200"
+      end
+    end
+
+    # 認可されたユーザーとして
+    # ゲストとして
+  end
 end
