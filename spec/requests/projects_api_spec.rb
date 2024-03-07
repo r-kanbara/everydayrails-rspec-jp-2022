@@ -47,4 +47,22 @@ RSpec.describe "Projects Api", type: :request do
 
     expect(response).to have_http_status(:success)
   end
+
+  # プロジェクトを更新できること
+  it "updates a project" do
+    user = FactoryBot.create(:user)
+    project = FactoryBot.create(:project, owner: user)
+
+    project_attributes = FactoryBot.attributes_for(:project, description: "A sample project for test")
+
+    expect {
+      patch api_project_path(project.id), params: {
+        user_email: user.email,
+        user_token: user.authentication_token,
+        project: project_attributes
+      }
+    }.to_not change(user.projects, :count)
+
+    expect(response).to have_http_status(:success)
+  end
 end
