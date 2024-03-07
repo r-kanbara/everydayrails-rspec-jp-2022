@@ -3,12 +3,9 @@ require 'rails_helper'
 RSpec.describe "Projects", type: :system do
   scenario "user creates a new project" do
     user = FactoryBot.create(:user)
+    sign_in user  # sign_in_as(user) でも可
 
-    visit root_path
-    click_link "Sign in"
-    fill_in "Email", with: user.email
-    fill_in "Password", with: user.password
-    click_button "Log in"
+    visit root_path  # sign_in_as(user)を用いた場合，ホームページに自動的に遷移するため，この記述は必要なし
 
     expect {
       click_link "New Project"
