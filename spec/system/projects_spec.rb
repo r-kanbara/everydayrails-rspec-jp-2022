@@ -25,13 +25,13 @@ RSpec.describe "Projects", type: :system do
   end
 
   # ユーザーはプロジェクトを完了済みにする
-  scenario "user completes a project", focus: true do
+  scenario "user completes a project" do
     # プロジェクトを持ったユーザーを準備する
     user = FactoryBot.create(:user)
     project = FactoryBot.create(:project, owner: user)
 
     # ユーザーはログインしている
-    sign_in user
+    login_as user, scope: :user
 
     # ユーザーがプロジェクト画面を開き，
     visit project_path(project)
@@ -43,6 +43,6 @@ RSpec.describe "Projects", type: :system do
     expect(project.reload.completed?).to be true
     expect(page).to have_content "Congratulations, this project is complete!"
     expect(page).to have_content "Completed"
-    expect(page).to_not have_content "Complete"
+    expect(page).to_not have_button "Complete"
   end
 end
