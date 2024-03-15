@@ -25,6 +25,14 @@ FactoryBot.define do
       name { nil }
     end
 
+    trait :completed do
+      completed { true }
+    end
+
+    trait :incompleted do
+      completed { false }
+    end
+
     # Factory inheritance examples ...
     #
     # factory :project_due_yesterday do
